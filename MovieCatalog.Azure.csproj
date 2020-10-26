@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="MovieCatalog.Data" Version="1.0.8" />
     <PackageReference Include="MovieCatalog.Api" Version="1.0.0" />
-    <PackageReference Include="MovieCatalog.Web" Version="1.0.2" />
+    <PackageReference Include="MovieCatalog.Web" Version="1.0.1" />
   </ItemGroup>
 
 </Project>
