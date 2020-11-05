@@ -15,7 +15,7 @@ namespace MovieCatalog.Web
         public static async Task Main(string[] args)
         {
             DefaultThreadCurrentCulture = DefaultThreadCurrentUICulture = InvariantCulture;
-            await (await CreateHostBuilder(args).Build().MigrateAndSeedDataAsync()).RunAsync();
+            await (await CreateHostBuilder(args).Build().InitDbAsync()).RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
