@@ -28,8 +28,10 @@ namespace MovieCatalog.Web
                         .Decorate<IAzureSqlTokenProvider, CacheAzureSqlTokenProvider>()
                         .AddSingleton<AadAuthenticationDbConnectionInterceptor>()
                         .AddMovieDataService()
-                        .AddDbContext<MovieCatalogDbContext>(options => options
-                            .UseSqlServer(context.Configuration.GetConnectionString("MovieCatalog")))
+                        .AddDbContext<MovieCatalogDbContext>((provider,options) => options
+                            .UseSqlServer(context.Configuration.GetConnectionString("MovieCatalog"))
+                            .AddInterceptors(provider.GetRequiredService<AadAuthenticationDbConnectionInterceptor>())
+                        )
                         .AddRazorPages())
                     .Configure((context, app) =>
                         (!context.HostingEnvironment.IsDevelopment()
