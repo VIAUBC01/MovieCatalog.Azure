@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MovieCatalog.Azure.TokenUtils;
 using MovieCatalog.Data;
 using System.Threading.Tasks;
 using static System.Globalization.CultureInfo;
@@ -22,6 +23,10 @@ namespace MovieCatalog.Web
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => webBuilder
                     .ConfigureServices((context, services) => services
+                        .AddMemoryCache()
+                        .AddSingleton<AzureIdentityAzureSqlTokenProvider>()
+                        .Decorate<IAzureSqlTokenProvider, CacheAzureSqlTokenProvider>()
+                        .AddSingleton<AadAuthenticationDbConnectionInterceptor>()
                         .AddMovieDataService()
                         .AddDbContext<MovieCatalogDbContext>(options => options
                             .UseSqlServer(context.Configuration.GetConnectionString("MovieCatalog")))
