@@ -24,7 +24,7 @@ namespace MovieCatalog.Web
                 .ConfigureWebHostDefaults(webBuilder => webBuilder
                     .ConfigureServices((context, services) => services
                         .AddMemoryCache()
-                        .AddSingleton<AzureIdentityAzureSqlTokenProvider>()
+                        .AddSingleton<IAzureSqlTokenProvider,AzureIdentityAzureSqlTokenProvider>()
                         .Decorate<IAzureSqlTokenProvider, CacheAzureSqlTokenProvider>()
                         .AddSingleton<AadAuthenticationDbConnectionInterceptor>()
                         .AddMovieDataService()
